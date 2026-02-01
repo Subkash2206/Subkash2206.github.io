@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subhash Kashyap | Research & Engineering</title>
+  <meta name="description"
+    content="Portfolio of Subhash Kashyap, Computer Science undergraduate at NIT Rourkela. Researcher and Developer.">
+
+  <!-- Fonts: Inter + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* 
+ * Elite Minimalist Portfolio Theme
+ * polished, premium, and content-focused.
+ */
+
+    :root {
+      /* Premium Monochrome Palette */
+      --bg-color: #ffffff;
+      --bg-secondary: #fafafa;
+      /* Very subtle grey for contrast */
+
+      --text-primary: #111111;
+      /* Almost black */
+      --text-secondary: #444444;
+      /* Dark Grey */
+      --text-tertiary: #737373;
+      /* Light Grey */
+
+      /* Accent: A sophisticated International Klein Blue or similar */
+      --accent-color: #2563eb;
+      --accent-subtle: #eff6ff;
+
+      --border-light: #e5e7eb;
+      --border-hover: #d1d5db;
+
+      /* Typography */
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+
+      /* Spacing System */
+      --space-2: 0.5rem;
+      /* 8px */
+      --space-4: 1rem;
+      /* 16px */
+      --space-6: 1.5rem;
+      /* 24px */
+      --space-8: 2rem;
+      /* 32px */
+      --space-12: 3rem;
+      /* 48px */
+      --space-20: 5rem;
+      /* 80px */
+
+      /* Layout */
+      --sidebar-width: 300px;
+      --max-content-width: 720px;
+      /* Tighter width for better reading experience */
+    }
+
+    /* Reset & Base */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      /* Default scrollbar visibility */
+    }
+
+    /* Global Scrollbar Styling - Premium Rectangular */
+    ::-webkit-scrollbar {
+      width: 8px;
+      /* Clean, usable width */
+      height: 8px;
+      /* For horizontal scroll if any */
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #94a3b8;
+      /* Professional Slate Grey */
+      border-radius: 0;
+      /* Sharp, rectangular look */
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #64748b;
+      /* Darker Slate on hover */
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      line-height: 1.65;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+
+      /* Subtle Dot Grid Pattern */
+      background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 24px 24px;
+      background-attachment: fixed;
+    }
+
+    ::selection {
+      background-color: var(--accent-subtle);
+      color: var(--accent-color);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    a:hover {
+      color: var(--accent-color);
+    }
+
+    /* Typography Overrides */
+    h1,
+    h2,
+    h3,
+    h4 {
+      color: var(--text-primary);
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      /* Tight tracking for premium feel */
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+      background: linear-gradient(135deg, var(--text-primary) 0%, #666 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: var(--space-12);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-2);
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .section-icon {
+      font-size: 1rem;
+      color: var(--text-tertiary);
+      opacity: 0.7;
+    }
+
+    p {
+      margin-bottom: var(--space-4);
+      color: var(--text-secondary);
+    }
+
+    strong {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Layout Container */
+    .container {
+      display: flex;
+      min-height: 100vh;
+      /* background-color removed to let body pattern show */
+    }
+
+    /* Sidebar - Fixed & Premium */
+    .sidebar {
+      width: var(--sidebar-width);
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      padding: var(--space-8) var(--space-6);
+      /* Reduced top/bottom padding to fit more links */
+      border-right: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background-color: #fff;
+      overflow-y: auto;
+      /* Enable scroll if content is too tall */
+
+      /* Styled Native Scrollbar */
+      scrollbar-width: thin;
+      /* Firefox */
+      scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
+    }
+
+    /* Custom Scrollbar Styling - Clean & Modern */
+    .sidebar::-webkit-scrollbar {
+      width: 4px;
+      /* Thinner for sidebar */
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background-color: rgba(148, 163, 184, 0.5);
+      /* Semi-transparent Slate */
+      border-radius: 0;
+      /* Rectangular as requested */
+    }
+
+    .sidebar::-webkit-scrollbar-thumb:hover {
+      background-color: #64748b;
+      /* Darker shade on hover */
+    }
+
+    .profile-img-container {
+      width: 140px;
+      /* Fixed width */
+      height: 140px;
+      /* Fixed height */
+      margin-bottom: var(--space-6);
+      border-radius: 12px;
+      /* Soft square > Circle for modern look */
+      overflow: hidden;
+      background-color: var(--bg-secondary);
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+      /* Premium soft lift */
+      flex-shrink: 0;
+      /* Prevent collapse */
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-img-container:hover .profile-img {
+      transform: scale(1.05);
+    }
+
+    .sidebar-bio-text {
+      color: var(--text-tertiary);
+      font-size: 0.925rem;
+      margin-top: var(--space-2);
+      margin-bottom: var(--space-8);
+      line-height: 1.5;
+    }
+
+    /* Nav Links - Modern Pill Style */
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      padding: var(--space-2) 0;
+      font-weight: 500;
+    }
+
+    .nav-links a i {
+      width: 20px;
+      text-align: center;
+      color: var(--text-tertiary);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+      transform: translateX(4px);
+      /* Micro-interaction */
+    }
+
+    .nav-links a:hover i {
+      color: var(--accent-color);
+    }
+
+    .contact-mini {
+      margin-top: auto;
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      font-family: var(--font-mono);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: var(--space-12) var(--space-8);
+      max-width: 900px;
+      /* Slightly wider than text limit for layout */
+    }
+
+    .section {
+      margin-bottom: var(--space-12);
+      opacity: 0;
+      /* JS will trigger fade-in */
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Experience/Project Cards */
+    .item-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    .item {
+      position: relative;
+      padding: var(--space-6);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      background-color: #fff;
+      transition: all 0.2s ease;
+    }
+
+    .item:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      transform: translateY(-1px);
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: var(--space-2);
+    }
+
+    .item-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+    }
+
+    .item-title:hover {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    .item-date {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      background-color: var(--bg-secondary);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .item-subtitle {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      margin-bottom: var(--space-2);
+      font-weight: 500;
+    }
+
+    .item-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    /* Tags */
+    .tags {
+      margin-top: var(--space-4);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background-color: var(--bg-secondary);
+      border: 1px solid transparent;
+      padding: 4px 10px;
+      border-radius: 4px;
+      /* Technical Label Style */
+      transition: background 0.2s;
+    }
+
+    .item:hover .tag {
+      background-color: var(--accent-subtle);
+      color: var(--accent-color);
+    }
+
+    /* Publication Specific Overrides (Citation Style) */
+    #publications .item {
+      border: none;
+      background: transparent;
+      padding: var(--space-4) 0;
+      border-radius: 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    #publications .item:last-child {
+      border-bottom: none;
+    }
+
+    #publications .item:hover {
+      box-shadow: none;
+      transform: translateX(4px);
+      border-color: var(--border-light);
+      /* Keep separator visible */
+    }
+
+    #publications .item-header {
+      margin-bottom: 4px;
+      /* Tighter layout */
+    }
+
+    /* News List */
+    .news-list {
+      list-style: none;
+    }
+
+    .news-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+      align-items: baseline;
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--border-light);
+      /* Solid professional line */
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
+    .news-date {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-tertiary);
+    }
+
+    .news-content {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        padding: var(--space-8);
+        align-items: center;
+        text-align: center;
+      }
+
+      .nav-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--space-6);
+      }
+
+      .main-content {
+        padding: var(--space-8) var(--space-6);
+      }
+
+      .news-item {
+        grid-template-columns: 1fr;
+        /* Stack on mobile */
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <!-- Sidebar: Profile & Nav -->
+    <aside class="sidebar">
+      <div class="profile-img-container">
+        <!-- Direct path, no tricks. -->
+        <img src="https://i.postimg.cc/DfqvSS3s/profile.jpg" alt="Subhash Kashyap" class="profile-img">
+      </div>
+
+      <h1>Subhash Kashyap</h1>
+      <p class="sidebar-bio-text">
+        CS Undergrad @ NIT Rourkela<br>
+        Research Intern @ ISI Bangalore
+      </p>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#about"><i class="fas fa-user-circle"></i> About</a></li>
+          <li><a href="#research"><i class="fas fa-microscope"></i> Research</a></li>
+          <li><a href="#projects"><i class="fas fa-code"></i> Projects</a></li>
+          <li><a href="#publications"><i class="fas fa-pen-nib"></i> Publications</a></li>
+          <li><a href="#news"><i class="fas fa-newspaper"></i> News</a></li>
+          <li><a href="#leadership"><i class="fas fa-users"></i> Leadership</a></li>
+        </ul>
+      </nav>
+
+      <ul class="nav-links" style="margin-top: 2rem;">
+        <li><a href="https://drive.google.com/file/d/1-Kch40N25g9rlVkAIogaCUGgaUDadgem/view?usp=sharing"
+            target="_blank"><i class="fas fa-file-pdf"></i> Resume</a></li>
+        <li><a href="https://github.com/Subkash2206" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </li>
+        <li><a href="https://www.linkedin.com/in/subhash-kashyap-71b65930b/" target="_blank"><i
+              class="fab fa-linkedin"></i> LinkedIn</a></li>
+        <li><a href="mailto:subhashkashyap2206@gmail.com"><i class="fas fa-envelope"></i> Email</a></li>
+      </ul>
+
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- About Section -->
+      <section id="about" class="section">
+        <h2>About Me</h2>
+        <p>
+          Born and raised in <strong>Mountain View, California</strong>, I spent over a decade in the heart of Silicon
+          Valley
+          before pursuing my undergraduate education in Computer Science at <strong>NIT Rourkela</strong>. As a
+          <strong>U.S. citizen</strong>, this choice reflects my commitment to gaining
+          rigorous
+          technical training while building a global perspective on research and innovation.
+        </p>
+        <p>
+          I currently work as a Research Intern at the <strong>Indian Statistical Institute, Bangalore</strong> under
+          <strong>Prof. Dr. Saroj K. Meher</strong>, where I investigate how <strong>classical signal
+            processing</strong>
+          techniques
+          relate to <strong>deep learning</strong> systems. Specifically, I'm exploring connections between
+          frequency-domain
+          operations and the learned representations in modern computer vision architectures, connecting foundational
+          DSP
+          theory with contemporary ML approaches.
+        </p>
+        <p>
+          Beyond signal processing and vision, I maintain strong interests in <strong>network systems and
+            security</strong>,
+          having built projects ranging from P2P protocols to packet analysis tools. I plan to return to the U.S. for
+          graduate
+          studies in machine learning, computer vision, or networked systems. I am actively seeking <strong>summer 2026
+            research
+            opportunities</strong> to deepen my contributions to these areas.
+        </p>
+      </section>
+
+      <!-- Research Experience -->
+      <section id="research" class="section">
+        <h2>Research Experience</h2>
+        <div class="item-group">
+          <div class="item">
+            <div class="item-header">
+              <span class="item-title">Indian Statistical Institute (ISI Bangalore)</span>
+              <span class="item-date">Dec 2025 - Present</span>
+            </div>
+            <span class="item-subtitle">Research Intern - Signal Processing & Machine Learning</span>
+            <span class="item-date"
+              style="display:block; font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 0.5rem;">Advisor:
+              Prof. Dr.
+              Saroj K. Meher | Bangalore, India</span>
+            <ul class="item-desc" style="margin-left: 1rem;">
+              <li>Conducting research at the intersection of classical signal processing and deep learning,
+                investigating
+                how frequency-domain operations (Fourier/Wavelet transforms) relate to learned representations in modern
+                computer vision architectures.</li>
+              <li>Implementing DSP algorithms from scratch (DFT, FFT, filtering, spectral analysis) and analyzing their
+                computational characteristics to build intuition for optimization in neural network contexts.</li>
+              <li>Developing comprehensive study of CNN architectures (ResNet, EfficientNet, Vision Transformers) with
+                focus on understanding convolution as signal processing operation and exploring spectral approaches to
+                feature learning.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects" class="section">
+        <h2>Selected Projects</h2>
+
+        <div class="item-group">
+          <div class="item">
+            <div class="item-header">
+              <a href="https://github.com/Subkash2206/sampling-aliasing-dsp" target="_blank" class="item-title">Sparse
+                Signal Recovery & Sampling Toolkit <i class="fas fa-arrow-right"
+                  style="font-size: 0.8rem; opacity: 0.5;"></i></a>
+            </div>
+            <p class="item-desc">
+              Investigated computational complexity and optimization of frequency-domain transforms by implementing
+              DFT/FFT
+              algorithms from scratch (no external libraries) and developing a Compressed Sensing framework using
+              Matching
+              Pursuit for sparse signal recovery. Achieved 8x speedup over naive FFT for N=4096 signals through
+              Cooley-Tukey
+              optimization, with comprehensive test coverage (>90%) validating mathematical correctness.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">NumPy</span>
+              <span class="tag">SciPy</span>
+              <span class="tag">CI/CD</span>
+            </div>
+          </div>
+
+
+          <div class="item">
+            <div class="item-header">
+              <a href="https://github.com/Subkash2206/ScapyTapper" target="_blank" class="item-title">ScapyTapper
+                <i class="fas fa-arrow-right" style="font-size: 0.8rem; opacity: 0.5;"></i></a>
+            </div>
+            <p class="item-desc">
+              ScapyTapper is a simple network analysis tool which analyses ipv4, ipv6, and arp packets. It can display
+              relevant information such as the source and destination IP, protocol involved, port info, TCP flags, DNS
+              queries, and HTTP methods. Arguments can be passed on the command line to allow users to filter based on
+              protocol, interface, etc.
+              Featured in a <a
+                href="https://medium.com/@subhashkashyap2206/scapytapper-building-a-simple-packet-sniffer-to-understand-network-analysis-from-scratch-deac53dc3549"
+                target="_blank" style="color: var(--accent-color);">technical deep-dive article</a>.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Scapy</span>
+              <span class="tag">Networking</span>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-header">
+              <a href="https://github.com/Subkash2206/SwarmShare" target="_blank" class="item-title">SwarmShare (P2P
+                Protocol) <i class="fas fa-arrow-right" style="font-size: 0.8rem; opacity: 0.5;"></i></a>
+            </div>
+            <p class="item-desc">
+              Designed a custom application-layer P2P file-sharing protocol inspired by BitTorrent to explore
+              distributed
+              systems and network protocol performance. Features multi-threaded concurrent downloads,
+              SHA-256 integrity verification per 1MB chunk, and tracker-based peer discovery. Tested
+              scalability under simulated peer churn scenarios.
+            </p>
+            <div class="tags">
+              <span class="tag">Socket Programming</span>
+              <span class="tag">Distributed Systems</span>
+              <span class="tag">SHA-256</span>
+              <span class="tag">Multi-threading</span>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-header">
+              <a href="https://github.com/Subkash2206/AlgoRoute" target="_blank" class="item-title">AlgoRoute
+                (Optimization Engine) <i class="fas fa-arrow-right" style="font-size: 0.8rem; opacity: 0.5;"></i></a>
+            </div>
+            <p class="item-desc">
+              Built interactive routing engine with scratch implementations of Dijkstra’s and A* on OSM data.
+              Simulates dynamic traffic and generates isochrones for emergency response zone analysis.
+            </p>
+            <div class="tags">
+              <span class="tag">Graph Theory</span>
+              <span class="tag">NetworkX</span>
+              <span class="tag">OSMnx</span>
+              <span class="tag">Streamlit</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Publications -->
+      <section id="publications" class="section">
+        <h2>Technical Writing</h2>
+        <div class="item-group">
+          <div class="item">
+            <div class="item-header">
+              <a href="https://medium.com/@subhashkashyap2206/scapytapper-building-a-simple-packet-sniffer-to-understand-network-analysis-from-scratch-deac53dc3549"
+                target="_blank" class="item-title">ScapyTapper: Building a Simple Packet Sniffer <i
+                  class="fas fa-arrow-right" style="font-size: 0.8rem; opacity: 0.5;"></i></a>
+              <span class="item-date">Medium • 2025</span>
+            </div>
+            <p class="item-desc">
+              A comprehensive deep-dive into network packet analysis and security monitoring from first principles.
+              Covers TCP/IP stack internals, Scapy library manipulation, Berkeley Packet Filters (BPF), and practical
+              security auditing.
+            </p>
+            <div class="tags">
+              <span class="tag">Network Security</span>
+              <span class="tag">Python Scapy</span>
+              <span class="tag">TCP/IP</span>
+              <span class="tag">Tutorial</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- News / Achievements -->
+      <section id="news" class="section">
+        <h2>News & Achievements</h2>
+        <ul class="news-list">
+          <li class="news-item">
+            <span class="news-date">Dec 2025</span>
+            <div class="news-content">
+              <strong>Started Research Internship</strong> at Indian Statistical Institute, Bangalore working
+              under Prof. Dr. Saroj K. Meher on signal processing and deep learning foundations.
+            </div>
+          </li>
+          <li class="news-item">
+            <span class="news-date">Dec 2025</span>
+            <div class="news-content">
+              <strong>Selected for IIT Bhubaneswar Winter Research Program</strong> — Ranked 19th out of 2,500+
+              applicants (top 0.8%).
+            </div>
+          </li>
+          <li class="news-item">
+            <span class="news-date">Nov 2025</span>
+            <div class="news-content">
+              <strong>Released open-source DSP toolkit</strong> with >90% test coverage, implementing spectral analysis
+              algorithms with 8x speedup over naive implementations.
+            </div>
+          </li>
+          <li class="news-item">
+            <span class="news-date">Jun 2025</span>
+            <div class="news-content">
+              <strong>Founding Member</strong> of the Quantitative Finance Community at NIT Rourkela.
+            </div>
+          </li>
+          <li class="news-item">
+            <span class="news-date">Jan 2025</span>
+            <div class="news-content">
+              <strong>Core Member</strong> at OpenCode (Official Open Source & CyberSec Society).
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Leadership & Community -->
+      <section id="leadership" class="section">
+        <h2>Leadership & Community</h2>
+
+        <div class="item-group">
+          <div class="item">
+            <div class="item-header">
+              <span class="item-title">HackNITR 7.0</span>
+              <span class="item-date">Jul 2025 - Jan 2026</span>
+            </div>
+            <span class="item-subtitle">Organizer & Content Lead</span>
+            <p class="item-desc">
+              Manage content strategy, sponsor outreach, and data-guided logistics for a nationwide hackathon with over
+              6,200 participants.
+              Lead workshops on networking/ML, coordinate technical mentorship, and build partnerships, strengthening
+              execution and leadership at scale.
+            </p>
+          </div>
+
+          <div class="item">
+            <div class="item-header">
+              <span class="item-title">Dream a Dream NGO</span>
+              <span class="item-date">Jul 2025</span>
+            </div>
+            <span class="item-subtitle">Teaching Intern - Computer Literacy</span>
+            <p class="item-desc">
+              Mentored 35 underprivileged students in computer literacy and life skills to bridge the digital divide.
+              Designed activity-based sessions on safe internet use and problem-solving, facilitating
+              confidence-building exercises to encourage technology as an accessible career path.
+            </p>
+          </div>
+
+          <div class="item">
+            <div class="item-header">
+              <span class="item-title">Clarion (Debate Society)</span>
+              <span class="item-date">2024 - Present</span>
+            </div>
+            <span class="item-subtitle">Active Debater</span>
+            <p class="item-desc">
+              Competitive parliamentary debater at NIT Rourkela's debate society. Achieved <strong>23rd Best
+                Speaker</strong>
+              nationally at Pratijja v20 and <strong>4th Best Speaker + Semifinalist</strong> at Intraclarion
+              (institutional
+              championship). These experiences have sharpened my structured argumentation and technical communication
+              skills.
+            </p>
+          </div>
+
+          <div class="item">
+            <div class="item-header">
+              <span class="item-title">AlgoVision Competition</span>
+              <span class="item-date">Nov 2024</span>
+            </div>
+            <span class="item-subtitle">First Place - Aptitude Track</span>
+            <p class="item-desc">
+              Won first place in competitive logic and pattern recognition competition. Coordinated team strategies
+              balancing speed and accuracy across multiple rounds.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section id="skills" class="section">
+        <h2>Technical Skills</h2>
+        <div class="item">
+          <p class="item-desc" style="margin-bottom: 0;">
+            <strong>Languages:</strong> Python, C++, C, SQL, MATLAB, Verilog (HDL)<br>
+            <strong>Libraries:</strong> NumPy, SciPy, Pandas, Scikit-learn, TensorFlow, PyTorch, OpenCV, Scapy,
+            Matplotlib, Streamlit<br>
+            <strong>Tools:</strong> Git, Linux, LaTeX, VS Code, Wireshark, Jupyter Notebooks<br>
+            <strong>Research Interests:</strong> Signal & Image Processing, Deep Learning Theory, Network Security,
+            Compressed Sensing<br>
+            <strong>Relevant Coursework:</strong> Data Structures & Algorithms, OOP, Computer Networks, DSP, Image
+            Processing, Probability & Statistics, DBMS, Game Theory
+          </p>
+        </div>
+      </section>
+
+
+
+      <!-- Footer -->
+      <footer
+        style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-light); font-size: 0.85rem; color: var(--text-tertiary);">
+        <p>&copy; <span id="year"></span> Subhash Kashyap.</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
