@@ -480,6 +480,7 @@
     }
 
     /* Responsive */
+    /* Responsive */
     @media (max-width: 900px) {
       .container {
         flex-direction: column;
@@ -491,25 +492,58 @@
         position: relative;
         border-right: none;
         border-bottom: 1px solid var(--border-light);
-        padding: var(--space-8);
+        padding: var(--space-6) var(--space-4);
+        /* Tighter padding */
         align-items: center;
         text-align: center;
+      }
+
+      .profile-img-container {
+        width: 80px;
+        /* Smaller mobile profile pic */
+        height: 80px;
+        margin-bottom: var(--space-2);
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        /* Scale down title */
+        margin-bottom: var(--space-12);
+        /* Match detailed list bottom margin */
+        margin-bottom: 0.5rem;
+      }
+
+      .sidebar-bio-text {
+        margin-bottom: var(--space-4);
       }
 
       .nav-links {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        gap: var(--space-6);
+        gap: var(--space-4);
+        margin-bottom: 0;
+      }
+
+      .nav-links a {
+        font-size: 0.85rem;
+        padding: 4px 8px;
+        background-color: var(--bg-secondary);
+        /* Pill style for touch targets */
+        border-radius: 4px;
       }
 
       .main-content {
-        padding: var(--space-8) var(--space-6);
+        padding: var(--space-6) var(--space-4);
+      }
+
+      .section {
+        margin-bottom: var(--space-8);
+        /* Reduce section gaps */
       }
 
       .news-item {
         grid-template-columns: 1fr;
-        /* Stack on mobile */
         gap: 4px;
       }
     }
