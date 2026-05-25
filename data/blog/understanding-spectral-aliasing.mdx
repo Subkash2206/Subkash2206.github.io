@@ -1,0 +1,93 @@
+---
+title: 'Understanding Spectral Aliasing in CNN Feature Maps'
+date: '2026-02-12'
+tags: ['deep-learning', 'signal-processing', 'frequency-analysis']
+draft: false
+summary: 'A mathematical analysis of how downsampling operators violate the Nyquist-Shannon sampling theorem, causing spectral aliasing and shift-variance inside deep convolutional neural networks.'
+---
+
+In modern deep neural networks, downsampling operations such as **max pooling**, **average pooling**, and **strided convolutions** are fundamental for building spatial invariance and reducing computational overhead. However, from a signal processing perspective, these operators frequently violate the Nyquist-Shannon sampling theorem, leading to severe **spectral aliasing** in hidden feature maps. 
+
+In this note, we examine the mathematical foundations of this phenomenon, analyze its impact on representation learning, and discuss how aliasing damages the shift-invariance properties of vision architectures.
+
+---
+
+### The Downsampling Problem: Signal-Processing Context
+
+Let $x(t)$ be a continuous-domain 1D signal, and let $X(f)$ be its Fourier transform:
+
+$$
+X(f) = \int_{-\infty}^{\infty} x(t) e^{-i 2 \pi f t} dt
+$$
+
+If $x(t)$ is bandlimited to a maximum frequency $B$ (i.e., $X(f) = 0$ for all $|f| > B$), the **Nyquist-Shannon sampling theorem** states that the signal can be perfectly reconstructed from its discrete samples $x[n] = x(n T_s)$ if and only if the sampling frequency $f_s = 1/T_s$ satisfies:
+
+$$
+f_s > 2B
+$$
+
+In a Convolutional Neural Network, feature maps are discrete signals $F \in \mathbb{R}^{H \times W \times C}$. Downsampling by a stride $S$ reduces the sampling rate by a factor of $S$. If the feature map contains frequency components above the new Nyquist limit ($f_{new} = \frac{f_s}{2S}$), these high-frequency components are folded back (aliased) into the lower-frequency spectrum.
+
+---
+
+### Mathematical Model of Aliasing
+
+To model the sampling and downsampling process, we can represent downsampling by a factor $M$ in the discrete-time domain. Let $x[n]$ be the input feature map along a single dimension, and let $y[n] = x[Mn]$ be the downsampled output. 
+
+The discrete-time Fourier transform (DTFT) of $y[n]$ is given by:
+
+$$
+Y(\omega) = \frac{1}{M} \sum_{k=0}^{M-1} X\left(\frac{\omega - 2\pi k}{M}\right)
+$$
+
+Where:
+- $\omega \in [-\pi, \pi]$ is the normalized angular frequency.
+- $k$ represents the spectral copies or "images" created by the decimation process.
+
+When the support of $X(\omega)$ exceeds $[-\pi/M, \pi/M]$, the terms in the summation overlap. This overlap is **aliasing**. Once high frequencies fold into low frequencies, they become indistinguishable from true low-frequency components, permanently destroying high-resolution spatial details.
+
+```
+Frequency Spectrum Overlap (Aliasing)
+    X(w)           _/\_
+   ------->      _/    \_
+               _/        \_
+  Decimated   /  \      /  \
+   Y(w)      /    \____/    \   <-- High-frequency overlap (Aliasing)
+            /______/\______/
+```
+
+---
+
+### The Shift-Variance Catastrophe
+
+A major selling point of CNNs is translation equivariance: if an input shifts, its feature representations should shift equivariantly. However, strided operations break this property entirely due to aliasing. 
+
+Consider a 1D input shift by $\delta$ samples, denoted by $x_\delta[n] = x[n - \delta]$. Its DTFT is:
+
+$$
+X_\delta(\omega) = e^{-i\omega\delta} X(\omega)
+$$
+
+If we downsample $x_\delta[n]$ by $M$, the output $y_\delta[n] = x[Mn - \delta]$ has the DTFT:
+
+$$
+Y_\delta(\omega) = \frac{1}{M} \sum_{k=0}^{M-1} e^{-i\left(\frac{\omega - 2\pi k}{M}\right)\delta} X\left(\frac{\omega - 2\pi k}{M}\right)
+$$
+
+Observe that the shift factor $e^{-i\left(\frac{\omega - 2\pi k}{M}\right)\delta}$ depends on $k$. When we sum over $k$, the aliasing terms interfere with phase relationships differently depending on the exact value of the sub-pixel shift $\delta$. As a result:
+
+$$
+y_\delta[n] \neq y[n - \delta/M] \quad \text{for } \delta \pmod M \neq 0
+$$
+
+This explains why tiny single-pixel shifts in inputs can cause drastic fluctuations in network confidence or completely change segmentation boundaries in clinical applications.
+
+---
+
+### Implications for Medical AI
+
+In computer vision tasks like computational pathology or volumetric MRI segmentation, high-frequency boundaries (e.g., cell membranes, tumor edges) carry the highest diagnostic weight. When a network aliases these features:
+1. **Unstable Boundaries**: Micro-movements of the patient inside the scanner alter the sub-pixel alignment of tissues, causing unpredictable segmentation boundary shifts.
+2. **Spectral Domain Blindness**: Strided convolutions discard structural phase information, rendering the network blind to subtle texture frequencies indicative of early-stage pathology.
+
+In subsequent research notes, we will investigate how anti-aliasing techniques (like low-pass filtering prior to downsampling) try to mitigate this shift-variance, and explore the downstream structural cost they impose on boundary localization precision.

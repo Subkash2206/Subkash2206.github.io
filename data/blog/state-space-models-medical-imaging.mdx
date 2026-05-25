@@ -1,0 +1,85 @@
+---
+title: 'State-Space Models in Medical Imaging'
+date: '2026-04-05'
+tags: ['deep-learning', 'state-space-models', 'mamba', 'medical-imaging']
+draft: false
+summary: 'An analytical review of Mamba-based vision models, examining how selective state-space mechanisms offer a potential resolution to the spatial-spectral conflicts of CNNs and Transformers.'
+---
+
+The landscape of volumetric medical image segmentation has long been dominated by two architectural paradigms: **Convolutional Neural Networks (CNNs)**, which scale linearly with image resolution but suffer from translation instability and local receptive fields; and **Vision Transformers (ViTs)**, which model global relationships but incur quadratic computational costs $O(N^2)$.
+
+Recently, **State-Space Models (SSMs)**—specifically **Mamba**—have emerged as a third paradigm. Offering linear scaling $O(N)$ alongside global receptive fields, Mamba represents a major theoretical shift. In this note, we examine Mamba’s architecture through a frequency-filtering lens and analyze how its selective scan mechanism operates in volumetric clinical segmentation.
+
+---
+
+### Foundations of State-Space Models
+
+Vision Mamba architectures are built upon the continuous-time linear state-space system, which maps an input signal $x(t) \in \mathbb{R}$ to a latent state $h(t) \in \mathbb{R}^N$ and an output $y(t) \in \mathbb{R}$:
+
+$$
+h'(t) = \mathbf{A} h(t) + \mathbf{B} x(t)
+$$
+
+$$
+y(t) = \mathbf{C} h(t) + \mathbf{D} x(t)
+$$
+
+To apply this to discrete image tokens, the continuous parameters $(\mathbf{A}, \mathbf{B})$ are discretized using a step size $\Delta$, typically via zero-order hold (ZOH) discretization:
+
+$$
+\mathbf{\bar{A}} = \exp(\Delta \mathbf{A})
+$$
+
+$$
+\mathbf{\bar{B}} = (\Delta \mathbf{A})^{-1} (\exp(\Delta \mathbf{A}) - \mathbf{I}) \cdot \Delta \mathbf{B}
+$$
+
+The discretized system is expressed as a recurrence:
+
+$$
+h_k = \mathbf{\bar{A}} h_{k-1} + \mathbf{\bar{B}} x_k
+$$
+
+$$
+y_k = \mathbf{C} h_k + \mathbf{D} x_k
+$$
+
+Alternatively, the linear recurrence can be computed globally as a discrete convolution with a structured kernel $\mathbf{K}$:
+
+$$
+\mathbf{K} = \left(\mathbf{C}\mathbf{\bar{B}}, \mathbf{C}\mathbf{\bar{A}}\mathbf{\bar{B}}, \dots, \mathbf{C}\mathbf{\bar{A}}^{L-1}\mathbf{\bar{B}}\right) \implies y = x * \mathbf{K}
+$$
+
+---
+
+### The Selective Scan: Dynamic Frequency Modulation
+
+While linear, time-invariant SSMs can be computed as convolutions, their performance is limited because the kernel $\mathbf{K}$ is static. Mamba introduces **selectivity** by making the parameters $\mathbf{B}$, $\mathbf{C}$, and $\mathbf{\Delta}$ functions of the input $x_k$:
+
+$$
+\mathbf{B}_k = \text{Linear}(x_k), \quad \mathbf{C}_k = \text{Linear}(x_k), \quad \Delta_k = \text{Softplus}(\text{Linear}(x_k))
+$$
+
+This input-dependent discretization changes the recurrence coefficient $\mathbf{\bar{A}}_k = \exp(\Delta_k \mathbf{A})$ dynamically at every step. From a signal-processing perspective, $\mathbf{\bar{A}}_k$ behaves as a **dynamic time-varying low-pass filter**.
+
+Let’s analyze how the dynamic step size $\Delta_k$ alters the frequency response:
+1. **Large $\Delta_k$ (High Sampling Step)**: The model discretizes the continuous state space with a coarse grid. The effective filter bandwidth widens, allowing high-frequency transitions (e.g., sharp boundary edges) to pass through to the latent state.
+2. **Small $\Delta_k$ (Low Sampling Step)**: The filter bandwidth narrows, smoothing out high-frequency fluctuations and focusing exclusively on low-frequency contextual trends (e.g., organ outlines, uniform tissue regions).
+
+Unlike a standard CNN that downsamples and blurs features globally, Mamba’s selective scan dynamically acts as an **adaptive bandpass filter**. It can choose to preserve high-frequency details along boundary transitions while low-pass filtering homogeneous regions to maintain noise resilience.
+
+```
+CNN (Static Downsampling) vs Mamba (Adaptive Selection)
+  CNN:     [Input] ---> [Fixed Blur Filter] ---> [Decimate]  (Unselective high-frequency loss)
+  Mamba:   [Input] ---> [Dynamic Delta(x)] ---> [Adaptive Scan] (Preserves sharp edges, blurs noise)
+```
+
+---
+
+### Volumetric Auditing: The Mamba Challenge
+
+Despite Mamba’s theoretical brilliance, translating it to volumetric medical data (e.g., 3D CT/MRI scans) introduces unique structural challenges:
+- **1D Ordering of 3D Spaces**: State-space models require a 1D sequence of tokens. Flattening a 3D volume into a 1D line violates spatial neighborhood relationships. While models like *Vision Mamba (Vim)* or *VM-UNet* utilize multi-directional scans (e.g., bidirectional, cross-scan, or 3D oct-directional scans), these scanning trajectories create artificial high-frequency discontinuities in the token sequence.
+- **Spectral Instability**: Our mechanistic auditing shows that the bidirectional scanning of a 3D medical volume can cause spectral representation oscillations. Because the parameterization of $\Delta_k$ changes rapidly at scan-direction boundaries, the latent state experiences high-frequency transient spikes.
+
+Understanding these spectral dynamics is critical. If selective scans introduce artificial high-frequency artifacts, they can compromise the very boundary precision they were designed to preserve. In our featured project, **Spectral Mamba**, we explore these representation dynamics directly.

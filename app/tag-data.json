@@ -1,0 +1,11 @@
+{
+  "computational-imaging": 1,
+  "anti-aliasing": 1,
+  "segmentation": 1,
+  "medical-imaging": 2,
+  "deep-learning": 2,
+  "state-space-models": 1,
+  "mamba": 1,
+  "signal-processing": 1,
+  "frequency-analysis": 1
+}
