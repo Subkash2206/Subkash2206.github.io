@@ -62,57 +62,80 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: #222225;
   }
 
   a,
   button {
-    outline-color: var(--color-primary-500);
+    outline-color: #8b8b8b;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: #222225;
+    transition: text-decoration-color 0.2s ease, color 0.2s ease;
+    &:hover {
+      text-decoration-color: #8b8b8b;
+      color: #eeeeee;
+    }
   }
 
   a:focus-visible,
   button:focus-visible {
     outline: 2px solid;
     border-radius: var(--radius-sm);
-    outline-color: var(--color-primary-500);
+    outline-color: #8b8b8b;
   }
 }
 
 @layer utilities {
   .prose {
     & a {
-      color: var(--color-primary-500);
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-thickness: 1px;
+      text-decoration-color: #222225;
+      transition: text-decoration-color 0.2s ease, color 0.2s ease;
       &:hover {
-        color: var(--color-primary-600);
-      }
-      & code {
-        color: var(--color-primary-400);
+        text-decoration-color: #8b8b8b;
+        color: #eeeeee;
       }
     }
-    & :where(h1, h2) {
-      font-weight: 700;
-      letter-spacing: var(--tracking-tight);
-    }
-    & h3 {
+    & :where(h1, h2, h3, h4, h5, h6) {
       font-weight: 600;
-    }
-    & :where(code):not(pre code) {
-      color: var(--color-indigo-500);
+      color: inherit;
+      letter-spacing: var(--tracking-tight);
     }
   }
 
   .prose-invert {
+    color: #d4d4d4;
     & a {
-      color: var(--color-primary-500);
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-thickness: 1px;
+      text-decoration-color: #222225;
+      transition: text-decoration-color 0.2s ease, color 0.2s ease;
       &:hover {
-        color: var(--color-primary-400);
-      }
-      & code {
-        color: var(--color-primary-400);
+        text-decoration-color: #8b8b8b;
+        color: #eeeeee;
       }
     }
     & :where(h1, h2, h3, h4, h5, h6) {
-      color: var(--color-gray-100);
+      color: #d4d4d4;
+      font-weight: 600;
+    }
+    & :where(code):not(pre code) {
+      color: #d4d4d4;
+      background-color: #1a1a1c;
+      padding: 0.125rem 0.25rem;
+      border-radius: 0.25rem;
+      font-size: 0.875em;
     }
   }
 }

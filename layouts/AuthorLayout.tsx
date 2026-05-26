@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import type { Authors } from 'contentlayer/generated'
-import SocialIcon from '@/components/social-icons'
 import Image from '@/components/Image'
 
 interface Props {
@@ -13,34 +12,46 @@ export default function AuthorLayout({ children, content }: Props) {
 
   return (
     <>
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
+      <div className="space-y-8 py-8 text-sm leading-relaxed text-[#d4d4d4]">
+        <div className="space-y-4 pb-2 border-b border-[#222225]">
+          <h1 className="text-lg font-semibold tracking-tight text-[#d4d4d4]">
             About
           </h1>
         </div>
-        <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
-          <div className="flex flex-col items-center space-x-2 pt-8">
+        <div className="flex flex-col md:flex-row gap-8 items-start">
+          <div className="flex flex-col items-center md:items-start space-y-3 w-full md:w-48 flex-shrink-0">
             {avatar && (
               <Image
                 src={avatar}
                 alt="avatar"
-                width={192}
-                height={192}
-                className="h-48 w-48 rounded-full flex-shrink-0 object-cover aspect-square"
+                width={120}
+                height={120}
+                className="h-24 w-24 rounded-full flex-shrink-0 object-cover aspect-square border border-[#222225]"
               />
             )}
-            <h3 className="pt-4 pb-2 text-2xl leading-8 font-bold tracking-tight">{name}</h3>
-            <div className="text-gray-500 dark:text-gray-400">{occupation}</div>
-            <div className="text-gray-500 dark:text-gray-400">{company}</div>
-            <div className="flex space-x-3 pt-6">
-              <SocialIcon kind="mail" href={`mailto:${email}`} />
-              <SocialIcon kind="github" href={github} />
-              <SocialIcon kind="linkedin" href={linkedin} />
-              <SocialIcon kind="bluesky" href={bluesky} />
+            <div className="text-center md:text-left space-y-1">
+              <h3 className="text-sm font-semibold text-[#d4d4d4]">{name}</h3>
+              <div className="text-xs text-[#8b8b8b]">{occupation}</div>
+              <div className="text-xs text-[#8b8b8b]">{company}</div>
+            </div>
+            <div className="flex flex-wrap gap-x-3 text-xs text-[#8b8b8b] pt-1">
+              <a href={`mailto:${email}`} className="underline underline-offset-4 decoration-1 decoration-[#222225] hover:decoration-[#8b8b8b] hover:text-[#d4d4d4] transition-all">
+                email
+              </a>
+              <a href={github} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 decoration-1 decoration-[#222225] hover:decoration-[#8b8b8b] hover:text-[#d4d4d4] transition-all">
+                github
+              </a>
+              <a href={linkedin} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 decoration-1 decoration-[#222225] hover:decoration-[#8b8b8b] hover:text-[#d4d4d4] transition-all">
+                linkedin
+              </a>
+              {bluesky && (
+                <a href={bluesky} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 decoration-1 decoration-[#222225] hover:decoration-[#8b8b8b] hover:text-[#d4d4d4] transition-all">
+                  bluesky
+                </a>
+              )}
             </div>
           </div>
-          <div className="prose dark:prose-invert max-w-none pt-8 pb-8 xl:col-span-2">
+          <div className="prose dark:prose-invert max-w-none text-[#d4d4d4] leading-relaxed flex-grow">
             {children}
           </div>
         </div>

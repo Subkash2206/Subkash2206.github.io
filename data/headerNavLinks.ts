@@ -1,9 +1,6 @@
 const headerNavLinks = [
-  { href: '/#focus', title: 'Focus' },
-  { href: '/#featured', title: 'Research' },
-  { href: '/#publications', title: 'Publications' },
-  { href: '/#writing', title: 'Notes' },
-  { href: '/#about', title: 'About' },
+  { href: '/blog', title: 'writing' },
+  { href: 'https://github.com/Subkash2206', title: 'github' },
 ]
 
 export default headerNavLinks
